@@ -1,4 +1,3 @@
-// Import necessary modules and configurations
 import './config.mjs';
 import mongoose from 'mongoose';
 import express from 'express';

@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         modalQuestion.style.display = 'none';
         // Clear the form
         document.getElementById('question-text').value = '';
+        location.reload();
       } catch (error) {
         // Handle failure (log error, display error message, etc.)
         console.error('Error asking a question:', error);
@@ -142,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Clear the form
         document.getElementById('answer-text').value = '';
         document.getElementById('question-id').value = '';
+        location.reload();
       } catch (error) {
         // Handle failure (log error, display error message, etc.)
         console.error('Error adding an answer:', error);
@@ -152,7 +154,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const closeQuestionButton = document.querySelector('#modal-question .close');
     closeQuestionButton.addEventListener('click', () => {
       // Hide the modal for asking a question
-      console.log("HIDING");
       modalQuestion.style.display = 'none';
       // Clear the form
       document.getElementById('question-text').value = '';
