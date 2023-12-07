@@ -20,6 +20,7 @@ app.use(express.json());
 
 // Route for creating a new question
 app.post('/questions/', async (req, res) => {
+  console.log(req.body); 
   try {
     // Create a new question in the database
     const newQuestion = await Question.create({
@@ -37,7 +38,7 @@ app.post('/questions/', async (req, res) => {
 
 // Route for adding an answer to a question
 app.post('/questions/:id/answers/', async (req, res) => {
-  console.log("Adding an answer", req.body.answer); 
+  
   const update = { "$push": { answers: req.body.answer } };
   try {
     // Update the question with the provided answer

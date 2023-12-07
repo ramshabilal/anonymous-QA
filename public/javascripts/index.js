@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const modalQuestion = document.getElementById('modal-question');
     const modalAnswer = document.getElementById('modal-answer');
 
+    
     // Function to create a list item for an answer
     function createAnswerListItem(answer) {
       const answerItem = createElement('li', null, answer);
@@ -74,12 +75,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Event listener for form submission in the ask question modal
-    const questionForm = document.getElementById('modal-question');
-    questionForm.addEventListener('submit', async (event) => {
+    const questionForm = document.getElementById('create-question');
+    questionForm.addEventListener('click', async (event) => {
+      
       event.preventDefault();
 
       // Collect the form data (just the question text)
       const questionText = document.getElementById('question-text').value;
+      console.log("Question form submitted", questionText);
 
       // Use AJAX POST to send the question text to the server
       try {
@@ -97,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const data = await response.json();
 
         // Handle successful result (add question text to the page, etc.)
-        console.log(data);
+        console.log("Data", data);
 
         // Close the modal
         modalQuestion.style.display = 'none';
@@ -110,8 +113,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Event listener for form submission in the add answer modal
-    const answerForm = document.getElementById('modal-answer');
-    answerForm.addEventListener('submit', async (event) => {
+    const answerForm = document.getElementById('create-answer');
+    answerForm.addEventListener('click', async (event) => {
       event.preventDefault();
       console.log("Answer form submitted");
 
@@ -143,17 +146,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Handle failure (log error, display error message, etc.)
         console.error('Error adding an answer:', error);
       }
-    });
+    }); 
 
     // Add this inside your existing "Close" button event listener for the modals
     const closeQuestionButton = document.querySelector('#modal-question .close');
     closeQuestionButton.addEventListener('click', () => {
       // Hide the modal for asking a question
+      console.log("HIDING");
       modalQuestion.style.display = 'none';
       // Clear the form
       document.getElementById('question-text').value = '';
     });
 
+    
     const closeAnswerButton = document.querySelector('#modal-answer .close');
     closeAnswerButton.addEventListener('click', () => {
       // Hide the modal for adding an answer
@@ -161,8 +166,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Clear the form
       document.getElementById('answer-text').value = '';
       document.getElementById('question-id').value = '';
-    });
+    }); 
+    
 
+   /*
     // Event delegation for "Add an Answer" buttons
     contentElement.addEventListener('click', (event) => {
       if (event.target.matches('.add-answer-button')) {
@@ -176,6 +183,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('question-id').value = questionId;
       }
     });
+
+    */
 
   } catch (error) {
     console.log('Error fetching questions:', error);
