@@ -17,7 +17,7 @@ function createElement(type, attrs, ...children) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await fetch('/questions');
+    const response = await fetch('https://anonymous-qna.vercel.app/questions');
     const questions = await response.json();
 
     // console.log(questions);
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the question text to the server
       try {
-        const response = await fetch('/questions/', {
+        const response = await fetch('https://anonymous-qna.vercel.app/questions/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the answer text to the server
       try {
-        const response = await fetch(`/questions/${questionId}/answers/`, {
+        const response = await fetch('https://anonymous-qna.vercel.app/questions/${questionId}/answers/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
