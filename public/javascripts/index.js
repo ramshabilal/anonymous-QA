@@ -1,5 +1,7 @@
 // Define the base URL for your API
-const BASE_URL = 'https://anonymous-qna.vercel.app';
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://anonymous-qna.vercel.app'
+  : 'http://localhost:3000';
 
 // Helper function for creating elements (usage optional)
 function createElement(type, attrs, ...children) {
