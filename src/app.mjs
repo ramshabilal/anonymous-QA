@@ -11,7 +11,7 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 // Create an Express application
 const app = express();
 
-app.use(cors());
+app.use(cors({origin: "https://anonymous-qna.vercel.app/"}));
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '..', 'public')));
