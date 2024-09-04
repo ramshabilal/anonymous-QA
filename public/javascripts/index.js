@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the question text to the server
       try {
-        const response = await fetch('http://localhost:3000/questions/', {
+        const response = await fetch('/questions/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the answer text to the server
       try {
-        const response = await fetch(`http://localhost:3000/questions/${questionId}/answers/`, {
+        const response = await fetch(`/questions/${questionId}/answers/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
