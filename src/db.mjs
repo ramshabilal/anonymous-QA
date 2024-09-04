@@ -6,8 +6,8 @@ const QuestionSchema = new mongoose.Schema({
   answers: [String]
 })
 
-console.log('connecting to database', process.env.DSN)
-mongoose.connect(process.env.DSN) 
+// mongoose.connect(process.env.DSN) 
+mongoose.connect("mongodb+srv://ramshabilal:RsRRPoY9gZCVNjhi@cluster0.siam2zv.mongodb.net/hw06?retryWrites=true&w=majority&appName=Cluster0")
 
 const Question = mongoose.model("Questions", QuestionSchema)
 export default Question
