@@ -1,15 +1,18 @@
-// helper function for creating elements (usage optional)
+// Define the base URL for your API
+const BASE_URL = 'https://anonymous-qna.vercel.app';
+
+// Helper function for creating elements (usage optional)
 function createElement(type, attrs, ...children) {
   const ele = document.createElement(type);
 
-  // add element attributes
+  // Add element attributes
   for (const prop in attrs) {
     if (attrs.hasOwnProperty(prop)) {
       ele.setAttribute(prop, attrs[prop]);
     }
   }
 
-  // add child nodes to element
+  // Add child nodes to element
   children.forEach(c => ele.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
 
   return ele;
@@ -17,17 +20,14 @@ function createElement(type, attrs, ...children) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await fetch('https://anonymous-qna.vercel.app/questions');
+    const response = await fetch(`${BASE_URL}/questions`);
     const questions = await response.json();
-
-    // console.log(questions);
 
     // Handle the data and update the DOM
     const contentElement = document.getElementById('content');
     const modalQuestion = document.getElementById('modal-question');
     const modalAnswer = document.getElementById('modal-answer');
 
-    
     // Function to create a list item for an answer
     function createAnswerListItem(answer) {
       const answerItem = createElement('li', null, answer);
@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Sample implementation for "Ask a Question" button click
     const askButton = document.getElementById('btn-show-modal-question');
-
     askButton.addEventListener('click', () => {
       // Show the modal for asking a question
       modalQuestion.style.display = 'block';
@@ -77,7 +76,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Event listener for form submission in the ask question modal
     const questionForm = document.getElementById('create-question');
     questionForm.addEventListener('click', async (event) => {
-      
       event.preventDefault();
 
       // Collect the form data (just the question text)
@@ -86,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the question text to the server
       try {
-        const response = await fetch('https://anonymous-qna.vercel.app/questions/', {
+        const response = await fetch(`${BASE_URL}/questions/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -95,7 +93,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         // Log information after receiving the response
         console.log('Server response:', response.status, response.statusText);
-
 
         const data = await response.json();
 
@@ -126,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the answer text to the server
       try {
-        const response = await fetch(`https://anonymous-qna.vercel.app/questions/${questionId}/answers/`, {
+        const response = await fetch(`${BASE_URL}/questions/${questionId}/answers/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -150,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }); 
 
-    // Add this inside your existing "Close" button event listener for the modals
+    // Event listener for closing the question modal
     const closeQuestionButton = document.querySelector('#modal-question .close');
     closeQuestionButton.addEventListener('click', () => {
       // Hide the modal for asking a question
@@ -159,7 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('question-text').value = '';
     });
 
-    
+    // Event listener for closing the answer modal
     const closeAnswerButton = document.querySelector('#modal-answer .close');
     closeAnswerButton.addEventListener('click', () => {
       // Hide the modal for adding an answer
@@ -168,24 +165,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('answer-text').value = '';
       document.getElementById('question-id').value = '';
     }); 
-    
-
-   /*
-    // Event delegation for "Add an Answer" buttons
-    contentElement.addEventListener('click', (event) => {
-      if (event.target.matches('.add-answer-button')) {
-        // Retrieve the question ID from the data attribute
-        const questionId = event.target.getAttribute('data-question-id');
-        console.log('Add an Answer button clicked for question ID:', questionId);
-
-        // Show the modal for adding an answer
-        modalAnswer.style.display = 'block';
-        // Set the question ID for the current question (for future reference)
-        document.getElementById('question-id').value = questionId;
-      }
-    });
-
-    */
 
   } catch (error) {
     console.log('Error fetching questions:', error);
