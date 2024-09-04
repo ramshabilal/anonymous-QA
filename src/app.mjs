@@ -1,5 +1,5 @@
 import './config.mjs';
-import mongoose from 'mongoose';
+import cors from 'cors';
 import express from 'express';
 import Question from './db.mjs';
 import url from 'url';
@@ -10,6 +10,8 @@ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 // Create an Express application
 const app = express();
+
+app.use(cors());
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '..', 'public')));
