@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Use AJAX POST to send the answer text to the server
       try {
-        const response = await fetch('https://anonymous-qna.vercel.app/questions/${questionId}/answers/', {
+        const response = await fetch(`https://anonymous-qna.vercel.app/questions/${questionId}/answers/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
